@@ -1,0 +1,48 @@
+{% extends "layout/main.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="row single-page page-style">
+
+    <div class="col-1 d-none d-md-block"></div>
+    <div class="col-12 col-lg-7 col-md-7 col-sm-12">
+        <h6>
+            {{ styleInfoViewModel.name }}
+        </h6>
+        <div class="description">
+            {{ styleInfoViewModel.description }}
+        </div>
+    </div>
+
+    <div class="d-none col-4 d-md-block">
+        <button class="btn circle">
+            <img src="/static/images/play.png" class="img-fluid">
+        </button>
+    </div>
+
+</div>
+
+<div class="row page-style-teachers">
+    <div class="col-1 d-none d-md-block"></div>
+    <div class="col-10 row">
+
+        {% for teacherLiteViewModel in styleInfoViewModel.teacherLiteViewModels %}
+            <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+                {% include "template/teacher_preview_2.html" with teacherLiteViewModel=teacherLiteViewModel %}
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 btn-full-width">
+        <a href="/#signUpToLesson">
+            <button class="btn btn-default">Записаться на занятие</button>
+        </a>
+    </div>
+</div>
+
+{% endblock content %}

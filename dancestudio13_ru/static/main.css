@@ -1,0 +1,715 @@
+
+@font-face {
+    font-family: "Inter-Regular";
+    src: url("./fonts/Inter/Inter-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: "Roboto-Regular";
+    src: url("./fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+.row {
+    margin:0;
+    padding:0;
+}
+
+body {
+    background-color: #14143E;
+    color:#fff;
+    font-family:"Roboto-Regular";
+}
+.hide {
+    display: none;
+}
+
+.single-page {
+    padding-top:100px;
+    min-height: 90%;
+    min-height: 90vh;
+}
+
+.btn-default {
+    background: #F6AB00;
+    border-radius: 10px;
+    color:#000;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    padding:8px 20px;
+}
+.col-relative {
+    position: relative;
+}
+.btn-default.empty {
+    background-color: transparent;
+    color:#fff;
+    border: 2px solid #F6AB00;
+    font-size:18px;
+}
+
+
+
+
+
+.header {
+    background: rgba(0, 1, 33, 0.6);
+    position: fixed;
+    width:100%;
+    text-align: center;
+    z-index:1;
+}
+.header a {
+    color:#fff;
+    text-decoration: none;
+}
+.header ul {
+    margin-top:25px;
+    list-style: none;
+    text-transform: uppercase;
+    display: inline-block;
+}
+.header ul li {
+    float:left;
+    margin-right:50px;
+}
+
+
+.header .out-mobile-menu {
+    text-align: right;
+}
+.header .btn-bar {
+    background-color: transparent;
+    border: 1px solid #F6AB00;
+    border-radius: 4px;
+    margin:10px 0 10px 0;
+}
+.header .btn-bar i {
+    color:#F6AB00;
+}
+#mobile-menu {
+    background-color: rgba(0, 1, 33,0.4);
+    position: fixed;
+    height: 100%;
+    width:100%;
+    z-index: 2;
+}
+#mobile-menu .block {
+    height: 100%;
+    width:80%;
+    background-color: #14143E;
+    float: right;
+    text-align: right;
+}
+#mobile-menu .btn-bar {
+    background-color: transparent;
+    border: 1px solid #F6AB00;
+    border-radius: 4px;
+    margin:10px 10px 10px 0;
+}
+#mobile-menu .btn-bar i {
+    color:#F6AB00;
+}
+#mobile-menu a {
+    color:#fff;
+    text-decoration: none;
+}
+#mobile-menu ul {
+    padding-left: 0;
+    list-style: none;
+    text-transform: uppercase;
+    margin-top:10px;
+    margin-right:10px;
+}
+#mobile-menu ul li {
+    margin-bottom:10px;
+}
+
+
+
+.footer {
+    background: rgba(0, 1, 33, 0.65);
+    text-align: center;
+    margin-top:50px;
+    text-transform: uppercase;
+    padding:30px 0 10px 0;
+}
+
+
+
+
+.video-preview {
+    position: relative;
+    margin-bottom:25px;
+}
+.video-preview .poster {
+    border-radius:20px;
+}
+.video-preview .btn {
+    border:2px solid #008FF6;
+    border-radius: 50%;
+    padding:25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+
+
+
+
+.section-header {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    letter-spacing: 0.02em;
+    margin-bottom:60px;
+}
+.section-header.upper {
+    text-transform: uppercase;
+}
+.section-index {
+    margin-top:60px;
+}
+.btn-full-width {
+    text-align: center;
+}
+
+
+
+/*
+.section1 {
+    min-height:100%;
+    min-height:100vh;
+    background-image: url("./images/section_1.png");
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding-top:18%;
+}
+.section1 h1 {
+    font-weight: 900;
+    font-size: 66px;
+    text-transform: uppercase;
+    line-height: 70px;
+    letter-spacing: 0.05em;
+}
+
+.section1 p {
+    font-weight: 300;
+    margin-top:20px;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.section1 .btn-default {
+    font-size: 12px;
+}
+.section1 .btn-promo {
+    margin-left:20px;
+    border:2px solid #008FF6;
+    border-radius: 10px;
+    color:#fff;
+    text-transform: uppercase;
+    font-size:12px;
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    padding:8px 20px;
+}
+
+
+.section1 .circle {
+    border:2px solid #F6AB00;
+    border-radius: 50%;
+    padding:25px;
+}
+*/
+.section1 {
+    min-height:90%;
+    min-height:90vh;
+    padding-top:70px;
+}
+.section1 h1 {
+    font-weight: 900;
+    font-size: 66px;
+    text-transform: uppercase;
+    line-height: 70px;
+    letter-spacing: 0.05em;
+}
+
+.section1 p {
+    font-weight: 300;
+    margin-top:20px;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.section1 .btn-default {
+    font-size: 12px;
+}
+.section1 video {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.section1 .invite {
+    text-align: center;
+    margin-top:25px;
+}
+
+.section1 .btn-promo {
+    margin-left:20px;
+    border:2px solid #008FF6;
+    border-radius: 10px;
+    color:#fff;
+    text-transform: uppercase;
+    font-size:12px;
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    padding:8px 20px;
+}
+
+
+.section1 .circle {
+    border:2px solid #F6AB00;
+    border-radius: 50%;
+    padding:25px;
+}
+
+
+
+
+
+
+.section-styles a {
+    text-decoration: none;
+}
+.section-styles .block {
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom:50px;
+}
+.section-styles .block p {
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    font-size: 40px;
+    line-height: normal;
+    text-transform: uppercase;
+}
+.section-styles .block.double {
+    border: 3px solid #008FF6;
+}
+.section-styles .block.double p {
+    color:#008FF6;
+    margin:25% 0;
+}
+.section-styles .block.single {
+    border: 3px solid #F6AB00;
+}
+.section-styles .block.single p {
+    color: #F6AB00;
+    margin-top: 15px;
+}
+.section-styles a.bottom {
+    position:absolute;
+    bottom:0;
+    width:94%;
+}
+
+
+
+
+
+
+
+.section-abonements .block {
+    border: 3px solid #008FF6;
+    border-radius: 20px;
+    text-align: center;
+    padding:30px 0;
+    margin-bottom: 30px;
+}
+.section-abonements p {
+    margin-bottom:0;
+}
+.section-abonements .name {
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    font-size: 30px;
+    line-height: normal;
+    text-transform: uppercase;
+}
+.section-abonements .price {
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    font-size: 50px;
+    color:#008FF6;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-top:20px;
+}
+.section-abonements .block-info {
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    padding-top:30px;
+    font-size: 30px;
+    text-align: center;
+}
+
+
+
+
+
+
+.section-adv {
+    margin:10% 0 0 0;
+}
+/*
+.section-adv .block {
+    text-align: center;
+}
+.section-adv .block img {
+    margin-bottom:30px;
+}
+.section-adv .block p {
+    margin-bottom:4px;
+}
+.section-adv .block p.name{
+    margin-bottom:20px;
+    font-weight: 600;
+}
+.section-adv .block p.description{
+    line-height: 19px;
+}
+*/
+.section-adv table {
+    width:100%;
+    text-align: center;
+    /*border: 1px solid #fff;*/
+}
+/*
+.section-adv table tr {
+    border: 1px solid #fff;
+}
+.section-adv table td {
+    border: 1px solid #fff;
+}
+*/
+.section-adv p {
+    margin-bottom:4px;
+}
+.section-adv table img {
+    margin-bottom:30px;
+}
+.section-adv .name p {
+    margin-bottom:20px;
+    font-weight: 600;
+}
+.section-adv .name, .section-adv .description {
+    vertical-align: middle;
+}
+.section-adv .description p {
+    padding:0 5%;
+}
+.section-adv hr {
+    margin-top: -4px;
+    height: 2px;
+    width:5vw;
+    background-color: #008FF6;
+}
+
+
+
+
+
+
+
+
+
+
+.section-enroll {
+    background-image: url("./images/section_enroll.png");
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-height: 90vh;
+    padding-top:10%;
+}
+
+.section-enroll .block {
+    background: rgba(0, 1, 33, 0.65);
+    border-radius: 20px;
+    padding:35px;
+
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    letter-spacing: 0.02em;
+}
+.section-enroll h6 {
+    font-size:24px;
+    text-transform: uppercase;
+}
+
+.section-enroll .block form label {
+    margin-bottom:16px;
+    font-size:20px;
+}
+.section-enroll .block form input {
+    border:none;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    margin-bottom:25px;
+}
+.section-enroll .block form .btn {
+    text-transform: none;
+    font-size:20px;
+    margin-top:25px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+
+
+
+
+
+
+.section-teachers .block {
+    text-align: center;
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    padding:0 4vw;
+}
+.section-teachers .teachers {
+    margin-bottom: 50px;
+}
+.section-teachers a {
+    text-decoration: none;
+}
+.section-teachers .block img {
+    border-radius: 50%;
+}
+.section-teachers .block p {
+    margin-bottom:0;
+}
+.section-teachers .block .name {
+    font-size:28px;
+    margin-top:10px;
+    color:#fff;
+}
+.section-teachers .block .style-name {
+    font-size:22px;
+    margin-top:4px;
+    color:#F6AB00;
+    text-transform: uppercase;
+}
+
+
+
+
+.page-teacher {
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    letter-spacing: 0.02em;
+    min-height: 90%;
+    min-height: 90vh;
+}
+.page-teacher img {
+    border-radius: 15px;
+}
+.page-teacher h6 {
+    text-align: center;
+    font-size:30px;
+}
+.page-teacher .schedule {
+    text-align: center;
+    color:#F6AB00;
+    font-size: 28px;
+}
+.page-teacher .description {
+    font-size:20px;
+}
+.page-teacher .videos {
+    margin-top:60px;
+}
+
+
+
+
+
+
+
+
+.page-style {
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    letter-spacing: 0.02em;
+    min-height: 90%;
+    min-height: 90vh;
+    
+    background-image: url("./images/section_enroll.png");
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-height: 90vh;
+}
+.page-style h6 {
+    text-align: center;
+    font-size:30px;
+    text-transform: uppercase;
+    margin-bottom:60px;
+}
+.page-style .description {
+    font-size:20px;
+}
+.page-style .btn.circle {
+    border: 2px solid #F6AB00;
+    border-radius: 50%;
+    padding: 25px;
+    margin-top:25%;
+    margin-left:25%;
+}
+
+
+
+
+.page-style-teachers {
+    margin-top: 50px;
+}
+.teacher-preview-2 {
+    text-align: center;
+    padding:50px;
+}
+.teacher-preview-2 img {
+    border-radius: 15px;
+    margin-bottom:10px;
+}
+.teacher-preview-2 a {
+    text-decoration: none;
+}
+.teacher-preview-2 p {
+    margin-bottom:0;
+}
+.teacher-preview-2 .name {
+    color:#fff;
+    font-size:26px;
+}
+.teacher-preview-2 .shedule {
+    color:#F6AB00;
+    font-size:22px;
+}
+.teacher-preview-2 .level {
+    color:#fff;
+    font-size:20px;
+}
+
+
+
+
+.page-contacts {
+    min-height: 90%;
+    min-height: 90vh;
+}
+.page-contacts .desc {
+    text-align: center;
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+.schedule-page table {
+    width:100%;
+    text-align: center;
+    font-weight: 400;
+    font-family:"Inter-Regular";
+    letter-spacing: 0.02em;
+}
+.schedule-page table .day-of-week {
+    font-size:18px;
+}
+.schedule-page table .time {
+    padding-right:30px;
+    padding-top:20px;
+}
+.schedule-page table .time p {
+    margin-top:30px;
+}
+.schedule-page table .schedule_row {
+    vertical-align: top;
+}
+.schedule-page .out-block {
+    border:3px solid #008FF6;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+    width: fit-content;
+    height: fit-content;
+    margin:20px auto;
+}
+.schedule-page .out-block p {
+    margin-bottom:0;
+}
+.schedule-page .out-block a {
+    color:#fff;
+}
+.schedule-page .out-block a:hover {
+    color:#F6AB00;
+}
+.schedule-page .name {
+    text-transform: uppercase;
+}
+.schedule-page .desc {
+    font-size:12px;
+    padding: 4px 12px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #008FF6;
+}
+.schedule-page .level {
+    font-size:10px;
+    padding:8px;
+}
+.schedule-page .level.special {
+    color:#F6AB00;
+}
+
+
+
+
+
+
+.rent-hall .block {
+    margin-bottom: 50px;
+}
+.rent-hall .block .hall_name {
+    text-align: center;
+    font-size:24px;
+    margin-bottom: 20px;
+}
+.rent-hall .block img {
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+.rent-hall .for-all {
+    margin-top:50px;
+    text-align: center;
+}
+.rent-hall .for-all img {
+    border-radius: 12px;
+}
+
+
+
+
+
+

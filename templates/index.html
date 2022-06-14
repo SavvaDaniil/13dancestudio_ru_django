@@ -1,0 +1,375 @@
+{% extends "layout/main.html" %}
+
+
+{% load static %}
+{% load custom_filter %}
+
+
+{% block content %}
+
+
+<div class="row section1">
+
+
+    <div class="col-2 d-none d-md-block"></div>
+    <div class="col-12 col-lg-8 col-md-8 col-sm-12">
+
+        <video muted autoplay loop class="img-fluid">
+            <source src="{% static '/promo.mp4' %}" typeof="video/mp4" />
+        </video>
+
+        <div class="invite">
+            <h1>13 Dance Studio</h1>
+            <p>Научись управлять своим телом</p>
+            <a href="#signUpToLesson">
+                <button class="btn btn-default">
+                    Записаться на занятие
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <!--
+    <div class="col-3">
+        
+        <button class="btn circle">
+            <img src="{% static '/images/play.png' %}" class="img-fluid" />
+        </button>
+    </div>
+    -->
+</div>
+
+<!--
+<div class="container section-index">
+    <div class="row">
+
+        <div class="col-12 col-lg-4 col-md-4 col-sm-4">
+            <div class="video-preview">
+                <button class="btn play">
+                    <img src="{% static '/images/play_blue.png' %}" class="img-fluid" />
+                </button>
+                <img src="{% static '/images/lesson_default.jpg' %}" class="img-fluid poster" />
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4 col-md-4 col-sm-4">
+            <div class="video-preview">
+                <button class="btn play">
+                    <img src="{% static '/images/play_blue.png' %}" class="img-fluid" />
+                </button>
+                <img src="{% static '/images/lesson_default.jpg' %}" class="img-fluid poster" />
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4 col-md-4 col-sm-4">
+            {% include "template/video_preview.html" %}
+        </div>
+
+    </div>
+</div>
+-->
+
+
+<div class="container section-index section-teachers" id="teachers">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="section-header upper">Преподаватели</h2>
+        </div>
+
+        {% for teacherLite6ViewModel in teacherLite6ViewModels %}
+            <div class="col-12 col-lg-4 col-md-4 col-sm-12 teachers">
+                <div class="block">
+                    <a href="/teacher/{{ teacherLite6ViewModel.link_short }}">
+                        {% if teacherLite6ViewModel.posterSrc %}
+                            <img src="{{ teacherLite6ViewModel.posterSrc }}" class="img-fluid" />
+                        {% else %}
+                            <img src="{% static '/images/teacher_default.jpg' %}" class="img-fluid" />
+                        {% endif %}
+                        <p class="name">
+                            {{ teacherLite6ViewModel.name }}
+                        </p>
+                        <p class="style-name">Jazz Funk</p>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="col-12 col-lg-4 col-md-4 col-sm-12 teachers">
+            <div class="block">
+                <a href="#">
+                    <img src="{% static '/images/teacher_default.jpg' %}" class="img-fluid" />
+                    <p class="name">Коля Барнин</p>
+                    <p class="style-name">Jazz Funk</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-12 btn-full-width">
+            <button class="btn btn-default empty">Показать всех</button>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container section-index section-styles" id="styles">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="section-header upper">Направления</h2>
+        </div>
+
+        {% if styleLiteViewModels %}
+            {% for styleLiteViewModel in styleLiteViewModels %}
+                {% if styleLiteViewModel.is_lower == 0 %}
+                    {% with next_element=styleLiteViewModels|next:forloop.counter0 %} 
+
+                        <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-relative">
+
+                            <a href="/style/{{ styleLiteViewModel.id }}">
+                            
+                                <div class="block {% if styleLiteViewModel.is_bigger %} double {% else %} single {% endif %}">
+                                    <p>{{ styleLiteViewModel.name }}</p>
+                                </div>
+                            </a>
+
+                            {%if next_element.is_lower == 1 %}
+                                {% if styleLiteViewModel.link_short %}
+                                    <a href="/style/{{ styleLiteViewModel.link_short }}" class="bottom">
+                                {% else %}
+                                    <a href="/style/{{ styleLiteViewModel.id }}" class="bottom">
+                                {% endif %}
+                                    <div class="block single bottom">
+                                        <p>{{ next_element.name }}</p>
+                                    </div>
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <div class="col-12"></div>
+
+        <!--
+        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+            <a href="#">
+                <div class="block double">
+                    <p>Jazz Funk</p>
+                </div>
+            </a>
+        </div>
+        
+        <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-relative">
+            <a href="#">
+                <div class="block single">
+                    <p>Hip Hop</p>
+                </div>
+            </a>
+            <a href="#" class="bottom">
+                <div class="block single bottom">
+                    <p>High Heels</p>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+            <a href="#">
+                <div class="block double">
+                    <p>Frame Up Strip</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+            <a href="#">
+                <div class="block single">
+                    <p>Stretching</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+            <a href="#">
+                <div class="block single">
+                    <p>Tribal</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+            <a href="#">
+                <div class="block single">
+                    <p>Reggaeton</p>
+                </div>
+            </a>
+        </div>
+        -->
+
+    </div>
+
+</div>
+
+
+<div class="container section-index section-abonements" id="prices">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="section-header upper">Наши цены</h2>
+        </div>
+
+        {% for abonementLiteViewModel in abonementLiteViewModels %}
+            <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+                <div class="block">
+                    <p class="name">
+                        {{ abonementLiteViewModel.name }}
+                    </p>
+                    <p class="price">
+                        {{ abonementLiteViewModel.price }}р
+                    </p>
+                </div>
+            </div>
+
+            {% if forloop.counter0 == 3 %}
+                <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+                    <div class="block-info">
+                        <p>
+                            &#8226; срок действия<br />всех абонементов<br />30 дней
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+
+        {% endfor %}
+
+        <!--
+        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+            <div class="block">
+                <p class="name">
+                    Абонемент на 4 занятия
+                </p>
+                <p class="price">
+                    2200р
+                </p>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+            <div class="block-info">
+                <p>
+                    &#8226; срок действия<br />всех абонементов<br />30 дней
+                </p>
+            </div>
+        </div>
+        -->
+
+
+    </div>
+</div>
+
+<!--
+<div class="container section-index">
+    <div class="row section-adv">
+
+        <div class="col-12">
+            <table>
+                <tr>
+                    <td colspan="3">
+                        <img src="{% static 'images/section_adv0.png' %}" class="img-fluid" />
+                    </td>
+                    
+                    <td></td>
+                    <td colspan="3">
+                        <img src="{% static 'images/section_adv1.png' %}" class="img-fluid" />
+                    </td>
+                    <td></td>
+                    <td colspan="3">
+                        <img src="{% static 'images/section_adv2.png' %}" class="img-fluid" />
+                    </td>
+                    <td></td>
+                    <td colspan="3">
+                        <img src="{% static 'images/section_adv3.png' %}" class="img-fluid" />
+                    </td>
+                </tr>
+                
+                <tr class="name">
+                    <td></td>
+                    <td>
+                        <p>Педагоги</p>
+                    </td>
+
+                    <td colspan="3"><hr /></td>
+
+                    <td>
+                        <p>Посещаемость</p>
+                    </td>
+
+                    <td colspan="3"><hr /></td>
+
+                    <td>
+                        <p>Комфортные залы</p>
+                    </td>
+
+                    <td colspan="3"><hr /></td>
+
+                    <td>
+                        <p>Направления</p>
+                    </td>
+                    <td></td>
+                </tr>
+
+                
+                <tr class="description">
+                    <td colspan="3">
+                        <p>Более 20 преподавателей по различным направлениям</p>
+                    </td>
+                    <td></td>
+                    
+                    <td colspan="3">
+                        <p>Нашу студию посетило более 45 000 учеников из России и других стран</p>
+                    </td>
+                    
+                    <td></td>
+                    
+                    <td colspan="3">
+                        <p>Уютные и атмосферные залы </p>
+                    </td>
+                    
+                    <td></td>
+                    
+                    <td colspan="3">
+                        <p>Более 10 крутейших танцевальных направлений</p>
+                    </td>
+                </tr>
+                
+
+            </table>
+        </div>
+    </div>
+</div>
+-->
+
+
+<div class="row section-index section-enroll" id="signUpToLesson">
+    <div class="col-2 d-none d-md-block"></div>
+    <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+        <div class="block">
+            <h6>Записаться на занятие</h6>
+            <form action="#">
+                <label for="firstname">Ваше имя</label>
+                <input class="form-control" name="firstname" class="form-control" type="text"  />
+
+                <label for="phone">Ваш номер телефона</label>
+                <input class="form-control" name="phone" class="form-control" type="text"  />
+
+                <button class="btn btn-default" type="button">
+                    Отправить
+                </button>
+                <p class="warning hide">Наши специалисты свяжутся с вами в течении нескольких минут</p>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% load static %}
+
+
+<div class="teacher-preview-2">
+    {% if teacherLiteViewModel.link_short %}
+        <a href="/teacher/{{ teacherLiteViewModel.link_short }}">
+    {% else %}
+        <a href="/teacher/{{ teacherLiteViewModel.id }}">
+    {% endif %}
+
+        {% if teacherLiteViewModel.posterSrc %}
+            <img src="{{ teacherLiteViewModel.posterSrc }}" class="img-fluid" />
+        {% else %}
+            <img src="{% static '/images/teacher_default.jpg' %}" class="img-fluid" />
+        {% endif %}
+
+        <p class="name">
+            {{ teacherLiteViewModel.name }}
+        </p>
+        <p class="shedule">
+            {{ teacherLiteViewModel.schedule_as_str }}
+        </p>
+        <!--
+        <p class="level">уровень 3</p>
+        -->
+    </a>
+</div>
+

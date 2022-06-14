@@ -1,0 +1,165 @@
+@media (max-width:641px) {
+
+    .btn-default {
+        padding:6px 14px;
+        font-size:14px;
+    }
+    .section-header {
+        font-size: 24px;
+    }
+
+    .section1 {
+        min-height: auto;
+    }
+    .section1 video {
+        display: none;
+    }
+    .section1 h1 {
+        line-height: 32px;
+        font-size: 30px;
+        margin:0;
+    }
+    .section1 p {
+        margin-top:10px;
+        font-size: 14px;
+    }
+
+
+
+
+
+
+    .section-teachers .block {
+        padding:0 50px;
+    }
+    .btn-default.empty {
+        font-size:14px;
+    }
+    .section-teachers .block .name {
+        font-size: 24px;
+    }
+    .section-teachers .block .style-name {
+        font-size: 18px;
+        margin-top: 0;
+    }
+
+
+
+
+    .section-abonements .block {
+        padding: 20px 0;
+    }
+    .section-abonements .block .name {
+        font-size:20px;
+    }
+    .section-abonements .block .price {
+        font-size: 30px;
+        margin-top: 10px;
+    }
+    .section-abonements .block-info {
+        padding-top: 20px;
+        font-size: 20px;
+    }
+
+
+
+
+
+
+
+
+    .section-enroll {
+        min-height: auto;
+    }
+    .section-enroll h6 {
+        font-size: 18px;
+    }
+    .section-enroll .block form label {
+        font-size: 16px;
+    }
+    .section-enroll .block form .btn {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    .section-styles .block {
+        margin-bottom: 20px;
+    }
+    .section-styles .block p {
+        font-size: 20px;
+    }
+    .section-styles .block.double p {
+        margin: 20px 0;
+    }
+    .section-styles a.bottom {
+        position: relative;
+    }
+
+
+
+
+
+    .single-page {
+        padding-top: 60px;
+        min-height: auto;
+        min-height: auto;
+    }
+
+
+    .page-teacher {
+        min-height: auto;
+        min-height: auto;
+    }
+    .page-teacher h6 {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .page-teacher .schedule {
+        font-size: 16px;
+    }
+    .page-teacher .description {
+        font-size: 14px;
+    }
+
+
+
+
+
+
+    .rent-hall .block .hall_name {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+}
+
+
+@media (max-width: 768px) {
+
+    
+}

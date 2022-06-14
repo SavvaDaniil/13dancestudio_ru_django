@@ -1,0 +1,13 @@
+
+{% load static %}
+
+<div class="video-preview">
+    <button class="btn play">
+        <img src="{% static '/images/play_blue.png' %}" class="img-fluid" />
+    </button>
+    {% if videoLiteViewModel.posterSrc %}
+        <img src="{{ videoLiteViewModel.posterSrc }}" class="img-fluid poster" />
+    {% else %}
+        <img src="{% static posterSrc|default:'/images/lesson_default.jpg' %}" class="img-fluid poster" />
+    {% endif %}
+</div>

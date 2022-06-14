@@ -1,0 +1,28 @@
+{% extends "layout/main.html" %}
+
+
+{% load static %}
+
+{% block content %}
+
+
+<div class="container single-page section-teachers">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="section-header">Преподаватели</h2>
+        </div>
+
+        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+            <div class="block">
+                <a href="#">
+                    <img src="{% static '/images/teacher_default.jpg' %}" class="img-fluid" />
+                    <p class="name">Коля Барнин</p>
+                    <p class="style-name">Jazz Funk</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

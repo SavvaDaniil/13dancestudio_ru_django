@@ -1,0 +1,50 @@
+{% extends "layout/main.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+<div class="container single-page page-teacher">
+    <div class="row">
+        <div class="col-12 col-lg-5 col-md-5 col-sm-12">
+            <!--
+            <img src="{% static '/images/teacher_bio_default.png' %}" class="img-fluid" />
+            -->
+            {% if teacherInfoViewModel.posterSrc %}
+                <img src="{{ teacherInfoViewModel.posterSrc }}" class="img-fluid" />
+            {% else %}
+                <img src="{% static '/images/teacher_default.jpg' %}" class="img-fluid" />
+            {% endif %}
+        </div>
+        <div class="col-12 col-lg-7 col-md-7 col-sm-12">
+            <h6>
+                {{ teacherInfoViewModel.name }}
+            </h6>
+            {% if teacherInfoViewModel.schedule_as_str %}
+                <p class="schedule">Расписание: {{ teacherInfoViewModel.schedule_as_str }}</p>
+            {% endif %}
+            <div class="description">
+                {{ teacherInfoViewModel.description | striptags | safe | linebreaks }}
+            </div>
+        </div>
+
+        <div class="col-12 row videos">
+            {% for videoLiteViewModel in teacherInfoViewModel.videoLiteViewModels %}
+                <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+                    {% include "template/video_preview.html" %}
+                </div>
+            {% endfor %}
+        </div>
+
+
+        <div class="col-12 btn-full-width">
+            <a href="/#signUpToLesson">
+                <button class="btn btn-default">Записаться на занятие</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
