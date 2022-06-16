@@ -2,6 +2,7 @@
 from tabnanny import verbose
 from typing import Iterable, Optional
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
 from django.contrib import admin
 import os
@@ -13,7 +14,7 @@ from numpy import delete
 
 
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "filename_basic")
+    list_display = ("id", "name", "active")
 
 class Video(models.Model):
 
@@ -25,7 +26,7 @@ class Video(models.Model):
         name_of_file = instance.id
         if name_of_file is None:
             name_of_file = datetime.datetime.today().strftime('%Y%m%d%H%M%S')
-        return 'images/video/poster/{0}.jpg'.format(instance.id)
+        return ...
 
     def getVideoPath(instance, filename) -> str:
         #instance.name = filename
@@ -33,7 +34,7 @@ class Video(models.Model):
         instance.filename_basic = filename
         if name_of_file is None:
             name_of_file = datetime.datetime.today().strftime('%Y%m%d%H%M%S')
-        return 'videos/{0}.mp4'.format(name_of_file)
+        return ...
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=516, blank=True, null=True)
@@ -52,7 +53,7 @@ class Video(models.Model):
 
 
 class TeacherAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "order_number")
+    list_display = ("id", "name", "active", "order_number")
 
 class Teacher(models.Model):
 
@@ -61,7 +62,7 @@ class Teacher(models.Model):
         verbose_name_plural = 'Преподаватели'
 
     def getPosterPath(instance, filename) -> str:
-        return 'image/teacher/{0}.jpg'.format(instance.id)
+        return ...
 
     readonly_fields = ["date_of_add", "date_of_update"]
 
@@ -113,7 +114,15 @@ class Style(models.Model):
         verbose_name_plural = "Стили"
     
     def getPosterPath(instance, filename) -> str:
-        return 'image/style/{0}.png'.format(instance.id)
+        return ...
+
+    def getVideoPath(instance, filename) -> str:
+        #instance.name = filename
+        name_of_file = instance.id
+        instance.filename_basic = filename
+        if name_of_file is None:
+            name_of_file = datetime.datetime.today().strftime('%Y%m%d%H%M%S')
+        return ...
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=516, blank=True, null=True)
@@ -121,6 +130,7 @@ class Style(models.Model):
     link_short = models.CharField(max_length=516, null=True, blank=True)
     active = models.BooleanField(default=False)
     posterSrc = models.ImageField(upload_to = getPosterPath, null=True, blank=True)
+    video = models.ForeignKey(Video, on_delete = models.CASCADE, blank=True, null=True)
     order_number = models.IntegerField(default=1, blank=True, null=True)
     teachers = models.ManyToManyField(Teacher, blank=True)
     
@@ -198,9 +208,52 @@ class RentHall(models.Model):
         return self.posterSrc2.url
 
 
+class DanceGroupAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "active", "isMonday", "isTuesday", "isWednesday", "isThursday", "isFriday", "isSaturday", "isSunday")
+
+class DanceGroup(models.Model):
+
+    class Meta:
+        verbose_name = "Группа в расписании"
+        verbose_name_plural = "Расписание"
+
+
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=516, null=True, blank=True)
+    level = models.IntegerField(default=1,
+        validators=[
+            MaxValueValidator(3),
+            MinValueValidator(1)
+        ]
+    )
+    isSpecialCourse = models.BooleanField(default=False)
+    active = models.BooleanField(default=False)
+    
+    ...
+
+    style = models.ForeignKey(Style, on_delete = models.CASCADE)
+    teacher = models.ForeignKey(Teacher, on_delete = models.CASCADE)
 
 
 
+
+class UserZayavkaAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "phone", "date_of_add")
+
+
+class UserZayavka(models.Model):
+    
+    class Meta:
+        verbose_name = 'Заявка с сайта'
+        verbose_name_plural = 'Заявки с сайта'
+
+    readonly_fields = ["date_of_add", "date_of_update"]
+
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=256, null=True, blank=True)
+    phone = models.CharField(max_length=256, null=True, blank=True)
+    ip_address = models.CharField(max_length=64, null=True, blank=True)
+    date_of_add = models.DateTimeField(null=True, blank=True, editable=False)
 
 
 

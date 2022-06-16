@@ -17,9 +17,11 @@
     </div>
 
     <div class="d-none col-4 d-md-block">
-        <button class="btn circle">
-            <img src="/static/images/play.png" class="img-fluid">
-        </button>
+        {% if styleInfoViewModel.videoSrc %}
+            <button class="btn circle" onclick="modalPlayerPreviewInit('{{ styleInfoViewModel.videoSrc }}')">
+                <img src="/static/images/play.png" class="img-fluid">
+            </button>
+        {% endif %}
     </div>
 
 </div>

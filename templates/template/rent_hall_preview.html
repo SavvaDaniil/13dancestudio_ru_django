@@ -1,0 +1,22 @@
+
+{% load static %}
+
+
+
+<div class="col-12 row block">
+    <div class="col-12">
+        <p class="hall_name">
+            {{ rentHallLiteViewModel.name }}
+        </p>
+    </div>
+
+    <div class="col-12 col-sm-12 {% if rentHallLiteViewModel.count_of_images == 3 %} col-lg-4 col-md-4 {% elif rentHallLiteViewModel.count_of_images == 2 %} col-lg-6 col-md-6 {% elif rentHallLiteViewModel.count_of_images == 1 %} col-lg-12 col-md-12 {% endif %}">
+        <img src="{{ rentHallLiteViewModel.posterSrc0 }}" class="img-fluid" />
+    </div>
+    <div class="col-12 col-sm-12 {% if rentHallLiteViewModel.count_of_images == 3 %} col-lg-4 col-md-4 {% elif rentHallLiteViewModel.count_of_images == 2 %} col-lg-6 col-md-6 {% elif rentHallLiteViewModel.count_of_images == 1 %} col-lg-12 col-md-12 {% endif %}">
+        <img src="{{ rentHallLiteViewModel.posterSrc1 }}" class="img-fluid" />
+    </div>
+    <div class="col-12 col-sm-12 {% if rentHallLiteViewModel.count_of_images == 3 %} col-lg-4 col-md-4 {% elif rentHallLiteViewModel.count_of_images == 2 %} col-lg-6 col-md-6 {% elif rentHallLiteViewModel.count_of_images == 1 %} col-lg-12 col-md-12 {% endif %}">
+        <img src="{{ rentHallLiteViewModel.posterSrc2 }}" class="img-fluid" />
+    </div>
+</div>

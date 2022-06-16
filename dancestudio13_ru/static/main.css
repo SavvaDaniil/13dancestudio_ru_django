@@ -26,6 +26,41 @@ body {
     display: none;
 }
 
+
+.modal-content {
+    margin-top:10%;
+    background-color: #14143E;
+    border: 2px solid #008FF6;
+    border-radius: 15px;
+}
+.modal-content button.close {
+    background-color: transparent;
+    border: 0;
+    color: #008FF6;
+    font-size: 24px;
+}
+.modal-header {
+    text-align: right;
+    display: block;
+    border: none;
+    padding-bottom:0;
+}
+.modal-footer {
+    text-align: center;
+    border: none;
+    display: block;
+}
+.modal-footer button {
+    margin-bottom:20px;
+}
+.modal-content .video-js {
+    border-radius: 15px;
+}
+.modal-content video {
+    border-radius: 15px;
+}
+
+
 .single-page {
     padding-top:100px;
     min-height: 90%;
@@ -484,6 +519,7 @@ body {
     font-weight: 400;
     font-family:"Inter-Regular";
     padding:0 4vw;
+    margin-bottom: 35px;
 }
 .section-teachers .teachers {
     margin-bottom: 50px;
@@ -625,13 +661,26 @@ body {
 
 
 
-
+.schedule-page .filter {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.schedule-page .filter .btn {
+    font-size: 12px;
+}
 .schedule-page table {
     width:100%;
     text-align: center;
     font-weight: 400;
     font-family:"Inter-Regular";
     letter-spacing: 0.02em;
+}
+.schedule-page .table {
+    color:#fff;
+    border: none;
+}
+.schedule-page .table tr, .schedule-page .table tr td {
+    border: none;
 }
 .schedule-page table .day-of-week {
     font-size:18px;
@@ -652,7 +701,6 @@ body {
     border-top-right-radius: 15px;
     border-bottom-left-radius: 25%;
     border-bottom-right-radius: 25%;
-    width: fit-content;
     height: fit-content;
     margin:20px auto;
 }
@@ -682,6 +730,13 @@ body {
 .schedule-page .level.special {
     color:#F6AB00;
 }
+
+.schedule-page .schdTime {
+    text-align: right;
+    margin-right:20px;
+}
+
+
 
 
 

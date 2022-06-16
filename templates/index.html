@@ -15,7 +15,7 @@
     <div class="col-12 col-lg-8 col-md-8 col-sm-12">
 
         <video muted autoplay loop class="img-fluid">
-            <source src="{% static '/promo.mp4' %}" typeof="video/mp4" />
+            <source src="{% static '/......' %}" typeof="video/mp4" />
         </video>
 
         <div class="invite">
@@ -29,45 +29,7 @@
         </div>
     </div>
 
-    <!--
-    <div class="col-3">
-        
-        <button class="btn circle">
-            <img src="{% static '/images/play.png' %}" class="img-fluid" />
-        </button>
-    </div>
-    -->
 </div>
-
-<!--
-<div class="container section-index">
-    <div class="row">
-
-        <div class="col-12 col-lg-4 col-md-4 col-sm-4">
-            <div class="video-preview">
-                <button class="btn play">
-                    <img src="{% static '/images/play_blue.png' %}" class="img-fluid" />
-                </button>
-                <img src="{% static '/images/lesson_default.jpg' %}" class="img-fluid poster" />
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-4 col-md-4 col-sm-4">
-            <div class="video-preview">
-                <button class="btn play">
-                    <img src="{% static '/images/play_blue.png' %}" class="img-fluid" />
-                </button>
-                <img src="{% static '/images/lesson_default.jpg' %}" class="img-fluid poster" />
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-4 col-md-4 col-sm-4">
-            {% include "template/video_preview.html" %}
-        </div>
-
-    </div>
-</div>
--->
 
 
 <div class="container section-index section-teachers" id="teachers">
@@ -76,37 +38,73 @@
             <h2 class="section-header upper">Преподаватели</h2>
         </div>
 
-        {% for teacherLite6ViewModel in teacherLite6ViewModels %}
-            <div class="col-12 col-lg-4 col-md-4 col-sm-12 teachers">
-                <div class="block">
-                    <a href="/teacher/{{ teacherLite6ViewModel.link_short }}">
-                        {% if teacherLite6ViewModel.posterSrc %}
-                            <img src="{{ teacherLite6ViewModel.posterSrc }}" class="img-fluid" />
-                        {% else %}
-                            <img src="{% static '/images/teacher_default.jpg' %}" class="img-fluid" />
-                        {% endif %}
-                        <p class="name">
-                            {{ teacherLite6ViewModel.name }}
-                        </p>
-                        <p class="style-name">Jazz Funk</p>
-                    </a>
-                </div>
-            </div>
-        {% endfor %}
+        <div class="col-12 row teachers" id="div_teachers"></div>
+            
 
-        <div class="col-12 col-lg-4 col-md-4 col-sm-12 teachers">
-            <div class="block">
-                <a href="#">
-                    <img src="{% static '/images/teacher_default.jpg' %}" class="img-fluid" />
-                    <p class="name">Коля Барнин</p>
-                    <p class="style-name">Jazz Funk</p>
-                </a>
+            <div class="col-12 btn-full-width">
+                <button class="btn btn-default empty" onclick="teacherSearch(6, 50, this)">Показать всех</button>
             </div>
-        </div>
+            <script>
+                var isteachersOthersLoading = false;
+                async function teacherSearch(offset, limit, el = null){
+                    if(isteachersOthersLoading)return;
+                    isteachersOthersLoading = true;
 
-        <div class="col-12 btn-full-width">
-            <button class="btn btn-default empty">Показать всех</button>
-        </div>
+                    try {
+                        var data = new FormData();
+                        data.append("offset", offset);
+                        data.append("limit", limit);
+                        data.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+                        const response = await fetch('/api/teacher/search', {
+                            method: 'POST',
+                            body: data
+                        });
+                        const result = await response.json();
+                        if(result["status"] == "success"){
+                            _buildTeachers(result["teacherLiteViewModels"]);
+                            if(el != null)el.classList.add("hide");
+                        }
+                        isteachersOthersLoading = false;
+                    } catch(error) {
+                        console.error('Ошибка:', error);
+                        isteachersOthersLoading = false;
+                    }
+                }
+
+                teacherSearch(0, 6);
+
+function _buildTeachers(teacherLiteViewModels){
+    if(teacherLiteViewModels == null)return;
+    var div_teachers = document.getElementById("div_teachers");
+    teacherLiteViewModels.forEach(teacherLiteViewModel => {
+        div_teachers.appendChild(_buildTeacherPreview(teacherLiteViewModel));
+    });
+}
+
+function _buildTeacherPreview(teacherLiteViewModel){
+    var divOut = document.createElement("div");
+    divOut.className = "col-12 col-lg-4 col-md-4 col-sm-12";
+
+    var divBlock = document.createElement("div");
+    divBlock.className = "block";
+    var aTeacher = document.createElement("a");
+    aTeacher.href = "/teacher/"+ teacherLiteViewModel["id"];
+
+    var imgPoster = document.createElement("img");
+    imgPoster.className = "img-fluid";
+    imgPoster.src = (teacherLiteViewModel["posterSrc"] != null ? teacherLiteViewModel["posterSrc"] : "/static/images/default_box.jpg");
+
+    var teacherName = document.createElement("p");
+    teacherName.className = "name";
+    teacherName.innerHTML = teacherLiteViewModel["name"];
+
+    aTeacher.appendChild(imgPoster);
+    aTeacher.appendChild(teacherName);
+    divBlock.appendChild(aTeacher);
+    divOut.appendChild(divBlock);
+    return divOut;
+}
+            </script>
 
     </div>
 </div>
@@ -151,59 +149,6 @@
 
         <div class="col-12"></div>
 
-        <!--
-        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
-            <a href="#">
-                <div class="block double">
-                    <p>Jazz Funk</p>
-                </div>
-            </a>
-        </div>
-        
-        <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-relative">
-            <a href="#">
-                <div class="block single">
-                    <p>Hip Hop</p>
-                </div>
-            </a>
-            <a href="#" class="bottom">
-                <div class="block single bottom">
-                    <p>High Heels</p>
-                </div>
-            </a>
-        </div>
-
-
-        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
-            <a href="#">
-                <div class="block double">
-                    <p>Frame Up Strip</p>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
-            <a href="#">
-                <div class="block single">
-                    <p>Stretching</p>
-                </div>
-            </a>
-        </div>
-        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
-            <a href="#">
-                <div class="block single">
-                    <p>Tribal</p>
-                </div>
-            </a>
-        </div>
-        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
-            <a href="#">
-                <div class="block single">
-                    <p>Reggaeton</p>
-                </div>
-            </a>
-        </div>
-        -->
 
     </div>
 
@@ -240,112 +185,9 @@
 
         {% endfor %}
 
-        <!--
-        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
-            <div class="block">
-                <p class="name">
-                    Абонемент на 4 занятия
-                </p>
-                <p class="price">
-                    2200р
-                </p>
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-4 col-md-4 col-sm-12">
-            <div class="block-info">
-                <p>
-                    &#8226; срок действия<br />всех абонементов<br />30 дней
-                </p>
-            </div>
-        </div>
-        -->
-
 
     </div>
 </div>
-
-<!--
-<div class="container section-index">
-    <div class="row section-adv">
-
-        <div class="col-12">
-            <table>
-                <tr>
-                    <td colspan="3">
-                        <img src="{% static 'images/section_adv0.png' %}" class="img-fluid" />
-                    </td>
-                    
-                    <td></td>
-                    <td colspan="3">
-                        <img src="{% static 'images/section_adv1.png' %}" class="img-fluid" />
-                    </td>
-                    <td></td>
-                    <td colspan="3">
-                        <img src="{% static 'images/section_adv2.png' %}" class="img-fluid" />
-                    </td>
-                    <td></td>
-                    <td colspan="3">
-                        <img src="{% static 'images/section_adv3.png' %}" class="img-fluid" />
-                    </td>
-                </tr>
-                
-                <tr class="name">
-                    <td></td>
-                    <td>
-                        <p>Педагоги</p>
-                    </td>
-
-                    <td colspan="3"><hr /></td>
-
-                    <td>
-                        <p>Посещаемость</p>
-                    </td>
-
-                    <td colspan="3"><hr /></td>
-
-                    <td>
-                        <p>Комфортные залы</p>
-                    </td>
-
-                    <td colspan="3"><hr /></td>
-
-                    <td>
-                        <p>Направления</p>
-                    </td>
-                    <td></td>
-                </tr>
-
-                
-                <tr class="description">
-                    <td colspan="3">
-                        <p>Более 20 преподавателей по различным направлениям</p>
-                    </td>
-                    <td></td>
-                    
-                    <td colspan="3">
-                        <p>Нашу студию посетило более 45 000 учеников из России и других стран</p>
-                    </td>
-                    
-                    <td></td>
-                    
-                    <td colspan="3">
-                        <p>Уютные и атмосферные залы </p>
-                    </td>
-                    
-                    <td></td>
-                    
-                    <td colspan="3">
-                        <p>Более 10 крутейших танцевальных направлений</p>
-                    </td>
-                </tr>
-                
-
-            </table>
-        </div>
-    </div>
-</div>
--->
 
 
 <div class="row section-index section-enroll" id="signUpToLesson">
@@ -353,22 +195,54 @@
     <div class="col-12 col-lg-4 col-md-4 col-sm-12">
         <div class="block">
             <h6>Записаться на занятие</h6>
-            <form action="#">
-                <label for="firstname">Ваше имя</label>
-                <input class="form-control" name="firstname" class="form-control" type="text"  />
+            <form action="#" id="formUserZayavka">
+                <label for="name">Ваше имя</label>
+                <input class="form-control" name="name" class="form-control" type="text"  />
 
                 <label for="phone">Ваш номер телефона</label>
                 <input class="form-control" name="phone" class="form-control" type="text"  />
 
-                <button class="btn btn-default" type="button">
+                <button class="btn btn-default" type="button" onclick="sendUserZayavka(this)">
                     Отправить
                 </button>
-                <p class="warning hide">Наши специалисты свяжутся с вами в течении нескольких минут</p>
             </form>
+            <p class="warning hide" id="userZayavkaWarning">Наши специалисты свяжутся с вами в течении нескольких минут</p>
         </div>
     </div>
 </div>
 
+<script>
+    async function sendUserZayavka(){
+        var form = document.getElementById("formUserZayavka");
+        var pWarning = document.getElementById("userZayavkaWarning");
+        try {
+            var data = new FormData(form);
+            if(data.get("name") == "" || data.get("phone") == ""){
+                alert("Оба поля обязательны для заполнения");
+                return;
+            }
+
+            data.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+            const response = await fetch('/api/user/zayavka', {
+                method: 'POST',
+                body: data
+            });
+            const result = await response.json();
+            if(result["status"] == "success"){
+                form.classList.add("hide");
+                if(pWarning.classList.contains("hide"))pWarning.classList.remove("hide");
+                let hideSuccessTimeout = setTimeout(function(){
+                    if(!pWarning.classList.contains("hide"))pWarning.classList.add("hide");
+                    if(form.classList.contains("hide"))form.classList.remove("hide");
+                }, 5000);
+            } else {
+                alert("Ошибка во время отправки заявки");
+            }
+        } catch(error) {
+            alert("Ошибка во время отправки заявки");
+        }
+    }
+</script>
 
 
 

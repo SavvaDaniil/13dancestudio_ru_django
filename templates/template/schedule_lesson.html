@@ -1,0 +1,20 @@
+
+
+
+<div class="out-block">
+    <div class="desc">
+        <p class="name">
+            {{ group_name }}
+        </p>
+        <p class="teacher">
+            {{ teacher_name }}
+        </p>
+    </div>
+    <div class="level {% if level == 'special' %} special {% endif %}">
+        {% if level == "special" %}
+            спецкурс
+        {% else %}
+            уровень {{ level }}
+        {% endif %}
+    </div>
+</div>

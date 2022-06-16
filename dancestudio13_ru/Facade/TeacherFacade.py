@@ -31,7 +31,6 @@ class TeacherFacade:
             for video in videos:
                 if video.active == 0:
                     continue
-                print(video.id)
                 videoLiteViewModels.append(
                     VideoLiteViewModel(
                         id= video.id,
@@ -49,6 +48,15 @@ class TeacherFacade:
             videoLiteViewModels = videoLiteViewModels
         )
 
+    def getLiteViewModel(self, teacher: Teacher) -> TeacherLiteViewModel:
+        return TeacherLiteViewModel(
+            id=teacher.id,
+            name=teacher.name,
+            schedule_as_str=teacher.schedule_as_str,
+            link_short=(teacher.link_short if teacher.link_short is not None else str(teacher.id)),
+            posterSrc=teacher.getPosterSrc()
+        )
+
     def search(self, offset: int, limit: int) -> List[TeacherLiteViewModel]:
         teacherRepository = TeacherRepository()
         teachers = teacherRepository.listAllActive(offset, limit)
@@ -56,13 +64,7 @@ class TeacherFacade:
 
         for teacher in teachers:
             teacherLiteViewModels.append(
-                dataclasses.asdict(TeacherLiteViewModel(
-                    id=teacher.id,
-                    name=teacher.name,
-                    schedule_as_str=teacher.schedule_as_str,
-                    link_short=(teacher.link_short if teacher.link_short is not None else str(teacher.id)),
-                    posterSrc=teacher.getPosterSrc()
-                ))
+                dataclasses.asdict(self.getLiteViewModel(teacher= teacher))
             )
 
         return teacherLiteViewModels
@@ -80,14 +82,7 @@ class TeacherFacade:
 
         for teacher in teachers:
             teacherLiteViewModels.append(
-                dataclasses.asdict(TeacherLiteViewModel(
-                    id=teacher.id,
-                    name=teacher.name,
-                    schedule_as_str=teacher.schedule_as_str,
-                    link_short=(teacher.link_short if teacher.link_short is not None else str(teacher.id)),
-                    posterSrc=teacher.getPosterSrc()
-                ))
+                dataclasses.asdict(self.getLiteViewModel(teacher= teacher))
             )
-
             
         return teacherLiteViewModels

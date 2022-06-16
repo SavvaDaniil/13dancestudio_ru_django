@@ -1,4 +1,4 @@
-from turtle import pos
+#from turtle import pos
 from dancestudio13_ru.Repository.StyleRepository import StyleRepository
 from dancestudio13_ru.ViewModel.Style.StyleLiteViewModel import StyleLiteViewModel
 from dancestudio13_ru.ViewModel.Style.StyleInfoViewModel import StyleInfoViewModel
@@ -46,7 +46,18 @@ class StyleFacade:
             description=style.description,
             link_short=style.link_short,
             posterSrc=style.getPosterSrc(),
+            videoSrc=(style.video.videoSrc.url if style.video and style.video.videoSrc else None),
             teacherLiteViewModels = teacherLiteViewModels
+        )
+
+    def getLiteViewModel(self, style: Style) -> StyleLiteViewModel:
+        return StyleLiteViewModel(
+            id=style.id,
+            name = style.name,
+            link_short= style.link_short,
+            posterSrc = style.getPosterSrc(),
+            is_bigger = style.is_bigger,
+            is_lower = style.is_lower
         )
 
     def listAllLiteActive(self) -> List[StyleLiteViewModel]:
@@ -56,14 +67,7 @@ class StyleFacade:
 
         for style in styles:
             styleLiteViewModel.append(
-                StyleLiteViewModel(
-                    id=style.id,
-                    name = style.name,
-                    link_short= style.link_short,
-                    posterSrc = style.posterSrc,
-                    is_bigger = style.is_bigger,
-                    is_lower = style.is_lower
-                )
+                self.getLiteViewModel(style)
             )
 
         return styleLiteViewModel

@@ -8,12 +8,14 @@ from dancestudio13_ru.Facade.TeacherFacade import TeacherFacade
 from dancestudio13_ru.Facade.StyleFacade import StyleFacade
 from dancestudio13_ru.Facade.AbonementFacade import AbonementFacade
 from dancestudio13_ru.Facade.RentHallFacade import RentHallFacade
+from dancestudio13_ru.Facade.DanceGroupFacade import DanceGroupFacade
+from dancestudio13_ru.Facade.UserZayavkaFacade import UserZayavkaFacade
 from dancestudio13_ru.ViewModel.JsonAnswerStatus import JsonAnswerStatus
 from dancestudio13_ru.ViewModel.Style.StyleInfoViewModel import StyleInfoViewModel
 from dancestudio13_ru.DTO.User.UserZayavkaDTO import UserZayavkaDTO
 from dancestudio13_ru.DTO.Teacher.TeacherSearchDTO import TeacherSearchDTO
 # Create your views here.
-
+import dataclasses
 
 
 
@@ -22,7 +24,6 @@ def index(request):
     teacherFacade = TeacherFacade()
     styleFacade = StyleFacade()
     abonementFacade = AbonementFacade()
-    teacherLite6ViewModels = teacherFacade.listFirst6LiteActive()
     styleLiteViewModels = styleFacade.listAllLiteActive()
     abonementLiteViewModels = abonementFacade.listAllLiteActive()
     return render(
@@ -30,7 +31,6 @@ def index(request):
         "index.html", 
         {
             "title" : title, 
-            "teacherLite6ViewModels" : teacherLite6ViewModels,
             "styleLiteViewModels" : styleLiteViewModels,
             "abonementLiteViewModels" : abonementLiteViewModels
         }
@@ -56,27 +56,23 @@ def teacherById(request, id_of_teacher: int = 0):
 def apiTeacherSearch(request):
     if request.method != "POST":
         return None
-    teacherSearchDTO = TeacherSearchDTO(request.POST)
+    teacherSearchDTO = TeacherSearchDTO(data=request.POST)
+    if not teacherSearchDTO.is_valid():
+        return None
     teacherFacade = TeacherFacade()
-    jsonAnswerStatus = JsonAnswerStatus(status = "success")
-    teacherInfoViewModel = teacherFacade.search(offset=teacherSearchDTO.offset, limit=teacherSearchDTO.limit)
-    jsonAnswerStatus.teacherInfoViewModel = teacherInfoViewModel
-
-    json_string = json.dumps(teacherInfoViewModel, ensure_ascii=False
-                ).encode('utf8')
-    return JsonResponse(
-        {
-            "status":"success",
-            "teacherLiteViewModels":json.loads(
-                json_string.decode()
-            )
-        })
+    jsonAnswerStatus = JsonAnswerStatus(status = "success", errors=None)
+    teacherLiteViewModels = teacherFacade.search(
+        offset=teacherSearchDTO.cleaned_data.get("offset"), 
+        limit=teacherSearchDTO.cleaned_data.get("limit")
+    )
+    jsonAnswerStatus.teacherLiteViewModels = teacherLiteViewModels
+    return JsonResponse(jsonAnswerStatus.__dict__)
 
 
 
 def apiTeachersListAll(request):
     teacherFacade = TeacherFacade()
-    teacherLiteViewModels = teacherFacade.listAllActiveLite()
+    teacherLiteViewModels = teacherFacade.listAllLiteActive()
 
     json_string = json.dumps(teacherLiteViewModels, ensure_ascii=False
                 ).encode('utf8')
@@ -151,11 +147,27 @@ def apiUserZayavka(request):
             json.loads(json.dumps(jsonAnswerStatus))
         )
     
+    userZayavkaFacade = UserZayavkaFacade()
+    ip_address = None
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip_address = x_forwarded_for.split(',')[0]
+    else:
+        ip_address = request.META.get('REMOTE_ADDR')
     
+    if not userZayavkaFacade.create(name=userZayavkaDTO.cleaned_data.get("name"), phone=userZayavkaDTO.cleaned_data.get("phone"), ip_address=ip_address):
+        jsonAnswerStatus = JsonAnswerStatus(status="error", errors="try_save")
+        return JsonResponse(jsonAnswerStatus.__dict__)
 
-    jsonAnswerStatus = JsonAnswerStatus(status="success")
-    return JsonResponse(json.loads(json.dumps(jsonAnswerStatus)))
+    jsonAnswerStatus = JsonAnswerStatus(status="success", errors=None)
+    return JsonResponse(jsonAnswerStatus.__dict__)
 
 
+def video(request):
+    return render(request, "video.html")
 
-
+def apiDanceGroupSearch(request):
+    danceGroupFacade = DanceGroupFacade()
+    jsonAnswerStatus = JsonAnswerStatus(status="success", errors=None)
+    jsonAnswerStatus.danceGroupLiteViewModels = danceGroupFacade.listAllLiteActive()
+    return JsonResponse(jsonAnswerStatus.__dict__)

@@ -2,12 +2,12 @@
 {% load static %}
 
 <div class="video-preview">
-    <button class="btn play">
+    <button class="btn play" onclick="modalPlayerPreviewInit('{{ videoLiteViewModel.videoSrc }}')">
         <img src="{% static '/images/play_blue.png' %}" class="img-fluid" />
     </button>
     {% if videoLiteViewModel.posterSrc %}
         <img src="{{ videoLiteViewModel.posterSrc }}" class="img-fluid poster" />
     {% else %}
-        <img src="{% static posterSrc|default:'/images/lesson_default.jpg' %}" class="img-fluid poster" />
+        <img src="{% static posterSrc|default:'/images/default_16_9.jpg' %}" class="img-fluid poster" />
     {% endif %}
 </div>
